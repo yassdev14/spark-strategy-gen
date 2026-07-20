@@ -16,7 +16,31 @@ const buttonVariants = cva(
         secondary: "bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80",
         ghost: "hover:bg-accent hover:text-accent-foreground",
         link: "text-primary underline-offset-4 hover:underline",
+        brand:
+          "bg-gradient-to-r from-iris to-electric text-white shadow-[0_10px_30px_-10px_var(--iris)] hover:brightness-110",
+        glass:
+          "border border-white/10 bg-white/5 text-foreground backdrop-blur hover:bg-white/10",
       },
+      size: {
+        default: "h-10 px-5",
+        sm: "h-9 rounded-md px-3 text-xs",
+        lg: "h-12 rounded-full px-7 text-sm",
+        xl: "h-14 rounded-full px-9 text-base",
+        icon: "h-10 w-10",
+      } satisfies Record<string, string>,
+    },
+    defaultVariants: {
+      variant: "default",
+      size: "default",
+    },
+  },
+);
+
+// legacy stub for the object literal we just replaced above; the second `size`/`defaultVariants`
+// block below will be ignored. Keep the file compiling in a single edit.
+const _unused_cva_extra = 0;
+void _unused_cva_extra;
+const _oldBlock = {
       size: {
         default: "h-9 px-4 py-2",
         sm: "h-8 rounded-md px-3 text-xs",
