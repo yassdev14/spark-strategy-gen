@@ -30,6 +30,7 @@ const PARTNERS: Partner[] = [
 const SECONDS_PER_LOGO = 3;
 
 export function PartnerMarquee() {
+  const marqueeRef = useRef<HTMLDivElement | null>(null);
   const trackRef = useRef<HTMLDivElement | null>(null);
   const offsetRef = useRef(0);
   const halfWidthRef = useRef(0);
@@ -62,6 +63,28 @@ export function PartnerMarquee() {
     pausedRef.current = next;
     if (!next) lastTsRef.current = null;
   }, []);
+
+  useEffect(() => {
+    const marquee = marqueeRef.current;
+    if (!marquee) return;
+
+    const pause = () => {
+      hoveredRef.current = true;
+      setPaused(true);
+    };
+    const resume = () => {
+      hoveredRef.current = false;
+      if (!draggingRef.current) setPaused(false);
+    };
+
+    marquee.addEventListener("pointerenter", pause);
+    marquee.addEventListener("pointerleave", resume);
+
+    return () => {
+      marquee.removeEventListener("pointerenter", pause);
+      marquee.removeEventListener("pointerleave", resume);
+    };
+  }, [setPaused]);
 
   useEffect(() => {
     const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -124,15 +147,6 @@ export function PartnerMarquee() {
     };
   }, [applyOffset, normalize, reduced]);
 
-  const onPointerEnter = () => {
-    hoveredRef.current = true;
-    setPaused(true);
-  };
-  const onPointerLeave = () => {
-    hoveredRef.current = false;
-    if (!draggingRef.current) setPaused(false);
-  };
-
   const onPointerDown = (e: React.PointerEvent) => {
     draggingRef.current = true;
     setPaused(true);
@@ -162,9 +176,8 @@ export function PartnerMarquee() {
   return (
     <div
       data-partner-marquee
+      ref={marqueeRef}
       className="group relative select-none"
-      onMouseEnter={onPointerEnter}
-      onMouseLeave={onPointerLeave}
     >
       {/* Edge fades */}
       <div
