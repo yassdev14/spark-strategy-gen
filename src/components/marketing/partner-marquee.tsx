@@ -70,7 +70,6 @@ export function PartnerMarquee() {
     const time = Number(animation.currentTime ?? 0) % DURATION_MS;
     return normalize(-(time / DURATION_MS) * width);
   }, [normalize]);
-  }, []);
 
   useEffect(() => {
     const marquee = marqueeRef.current;
