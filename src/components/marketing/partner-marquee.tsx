@@ -27,7 +27,7 @@ const PARTNERS: Partner[] = [
   { name: "Centre Régional d'Investissement Souss Massa", url: cri.url },
 ];
 
-const SPEED_PX_PER_SEC = 42;
+const SECONDS_PER_LOGO = 3;
 
 export function PartnerMarquee() {
   const trackRef = useRef<HTMLDivElement | null>(null);
@@ -35,6 +35,7 @@ export function PartnerMarquee() {
   const halfWidthRef = useRef(0);
   const rafRef = useRef<number | null>(null);
   const lastTsRef = useRef<number | null>(null);
+  const speedRef = useRef(64);
   const hoveredRef = useRef(false);
   const pausedRef = useRef(false);
   const draggingRef = useRef(false);
@@ -76,7 +77,11 @@ export function PartnerMarquee() {
 
     const measure = () => {
       const firstSecondSetItem = track.children[PARTNERS.length] as HTMLElement | undefined;
+      const firstItem = track.children[0] as HTMLElement | undefined;
+      const secondItem = track.children[1] as HTMLElement | undefined;
+      const itemAdvance = firstItem && secondItem ? secondItem.offsetLeft - firstItem.offsetLeft : 192;
       const exactLoopWidth = firstSecondSetItem?.offsetLeft ?? track.scrollWidth / 2;
+      speedRef.current = Math.min(82, Math.max(56, itemAdvance / SECONDS_PER_LOGO));
       halfWidthRef.current = exactLoopWidth;
       offsetRef.current = normalize(offsetRef.current);
       applyOffset();
@@ -105,7 +110,7 @@ export function PartnerMarquee() {
       const dt = (ts - lastTsRef.current) / 1000;
       lastTsRef.current = ts;
       if (!pausedRef.current && !draggingRef.current && !reduced && halfWidthRef.current > 0) {
-        offsetRef.current = normalize(offsetRef.current - SPEED_PX_PER_SEC * dt);
+        offsetRef.current = normalize(offsetRef.current - speedRef.current * dt);
         applyOffset();
       }
       rafRef.current = requestAnimationFrame(tick);
