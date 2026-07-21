@@ -107,14 +107,8 @@ export function PartnerMarquee() {
     };
   }, [reduced]);
 
-  const handleEnter = () => {
-    pausedRef.current = true;
-    lastTsRef.current = null;
-  };
-  const handleLeave = () => {
-    pausedRef.current = false;
-    lastTsRef.current = null;
-  };
+
+
 
 
   const onPointerEnter = () => {
