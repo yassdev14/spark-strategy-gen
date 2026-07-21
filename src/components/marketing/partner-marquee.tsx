@@ -161,6 +161,7 @@ export function PartnerMarquee() {
 
   return (
     <div
+      data-partner-marquee
       className="group relative select-none"
       onMouseEnter={onPointerEnter}
       onMouseLeave={onPointerLeave}
@@ -183,6 +184,7 @@ export function PartnerMarquee() {
         onPointerCancel={onPointerUp}
       >
         <div
+          data-partner-track
           ref={trackRef}
           className="flex w-max items-center gap-8 py-2 will-change-transform sm:gap-12"
           style={{ transform: "translate3d(0,0,0)" }}
