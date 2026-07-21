@@ -54,11 +54,27 @@ export function PartnerMarquee() {
     if (!track) return;
 
     const measure = () => {
+      // track holds 2x the partners; one loop = half the total width + one gap
       halfWidthRef.current = track.scrollWidth / 2;
     };
     measure();
     const ro = new ResizeObserver(measure);
     ro.observe(track);
+
+    // Re-measure once images have loaded (scrollWidth can change)
+    const imgs = Array.from(track.querySelectorAll("img"));
+    let pending = imgs.length;
+    const onImg = () => {
+      pending -= 1;
+      if (pending <= 0) measure();
+    };
+    imgs.forEach((img) => {
+      if (img.complete) onImg();
+      else {
+        img.addEventListener("load", onImg, { once: true });
+        img.addEventListener("error", onImg, { once: true });
+      }
+    });
 
     const normalize = (v: number) => {
       const w = halfWidthRef.current;
@@ -76,7 +92,7 @@ export function PartnerMarquee() {
       if (lastTsRef.current == null) lastTsRef.current = ts;
       const dt = (ts - lastTsRef.current) / 1000;
       lastTsRef.current = ts;
-      if (!pausedRef.current && !draggingRef.current && !reduced) {
+      if (!pausedRef.current && !draggingRef.current && !reduced && halfWidthRef.current > 0) {
         offsetRef.current = normalize(offsetRef.current - SPEED_PX_PER_SEC * dt);
         apply();
       }
@@ -90,6 +106,16 @@ export function PartnerMarquee() {
       ro.disconnect();
     };
   }, [reduced]);
+
+  const handleEnter = () => {
+    pausedRef.current = true;
+    lastTsRef.current = null;
+  };
+  const handleLeave = () => {
+    pausedRef.current = false;
+    lastTsRef.current = null;
+  };
+
 
   const onPointerEnter = () => {
     pausedRef.current = true;
