@@ -121,12 +121,12 @@ export function PartnerMarquee() {
     pausedRef.current = true;
   };
   const onPointerLeave = () => {
-    pausedRef.current = false;
-    draggingRef.current = false;
+    if (!draggingRef.current) pausedRef.current = false;
   };
 
   const onPointerDown = (e: React.PointerEvent) => {
     draggingRef.current = true;
+    pausedRef.current = true;
     dragStartXRef.current = e.clientX;
     dragStartOffsetRef.current = offsetRef.current;
     (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
@@ -144,12 +144,13 @@ export function PartnerMarquee() {
   };
   const onPointerUp = (e: React.PointerEvent) => {
     draggingRef.current = false;
+    pausedRef.current = false;
+    lastTsRef.current = null;
     try {
       (e.currentTarget as HTMLElement).releasePointerCapture(e.pointerId);
     } catch {
       /* noop */
     }
-    lastTsRef.current = null;
   };
 
   const loop = [...PARTNERS, ...PARTNERS];
@@ -163,11 +164,11 @@ export function PartnerMarquee() {
       {/* Edge fades */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-y-0 left-0 z-10 w-24 bg-gradient-to-r from-void to-transparent sm:w-32"
+        className="pointer-events-none absolute inset-y-0 left-0 z-10 w-16 bg-gradient-to-r from-void to-transparent sm:w-24"
       />
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-y-0 right-0 z-10 w-24 bg-gradient-to-l from-void to-transparent sm:w-32"
+        className="pointer-events-none absolute inset-y-0 right-0 z-10 w-16 bg-gradient-to-l from-void to-transparent sm:w-24"
       />
 
       <div
@@ -179,7 +180,7 @@ export function PartnerMarquee() {
       >
         <div
           ref={trackRef}
-          className="flex w-max items-center gap-6 will-change-transform"
+          className="flex w-max items-center gap-8 py-2 will-change-transform sm:gap-12"
           style={{ transform: "translate3d(0,0,0)" }}
         >
           {loop.map((p, i) => (
@@ -195,12 +196,11 @@ function LogoChip({ partner }: { partner: Partner }) {
   return (
     <div
       className={cn(
-        "flex h-24 w-44 shrink-0 items-center justify-center rounded-2xl",
-        "border border-white/10 bg-white/95 px-6 py-5",
-        "shadow-[0_10px_30px_-20px_rgba(0,0,0,0.6)]",
-        "transition-transform duration-300 ease-out",
-        "hover:scale-[1.04] hover:bg-white",
-        "sm:h-28 sm:w-52",
+        "flex h-20 w-40 shrink-0 items-center justify-center rounded-xl",
+        "bg-white/8 px-5 py-4 backdrop-blur-sm",
+        "transition-all duration-300 ease-out",
+        "hover:bg-white/12 hover:scale-[1.04]",
+        "sm:h-24 sm:w-48",
       )}
       title={partner.name}
     >
@@ -210,8 +210,9 @@ function LogoChip({ partner }: { partner: Partner }) {
         loading="lazy"
         decoding="async"
         draggable={false}
-        className="max-h-full max-w-full object-contain"
+        className="max-h-full max-w-full object-contain opacity-90 transition-opacity duration-300 hover:opacity-100"
       />
     </div>
   );
 }
+
