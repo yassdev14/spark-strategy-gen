@@ -28,24 +28,21 @@ const PARTNERS: Partner[] = [
 ];
 
 const SECONDS_PER_LOGO = 3;
+const DURATION_MS = PARTNERS.length * SECONDS_PER_LOGO * 1000;
 
 export function PartnerMarquee() {
   const marqueeRef = useRef<HTMLDivElement | null>(null);
   const trackRef = useRef<HTMLDivElement | null>(null);
-  const offsetRef = useRef(0);
-  const halfWidthRef = useRef(0);
-  const rafRef = useRef<number | null>(null);
-  const lastTsRef = useRef<number | null>(null);
-  const speedRef = useRef(64);
+  const animationRef = useRef<Animation | null>(null);
+  const loopWidthRef = useRef(0);
   const hoveredRef = useRef(false);
-  const pausedRef = useRef(false);
   const draggingRef = useRef(false);
   const dragStartXRef = useRef(0);
   const dragStartOffsetRef = useRef(0);
   const [reduced, setReduced] = useState(false);
 
   const normalize = useCallback((value: number) => {
-    const width = halfWidthRef.current;
+    const width = loopWidthRef.current;
     if (!width) return value;
 
     let next = value % width;
@@ -53,15 +50,26 @@ export function PartnerMarquee() {
     return next;
   }, []);
 
-  const applyOffset = useCallback((value = offsetRef.current) => {
-    const track = trackRef.current;
-    if (!track) return;
-    track.style.transform = `translate3d(${value}px, 0, 0)`;
-  }, []);
+  const offsetToTime = useCallback((offset: number) => {
+    const width = loopWidthRef.current;
+    if (!width) return 0;
+    return (-normalize(offset) / width) * DURATION_MS;
+  }, [normalize]);
 
   const setPaused = useCallback((next: boolean) => {
-    pausedRef.current = next;
-    if (!next) lastTsRef.current = null;
+    const animation = animationRef.current;
+    if (!animation || reduced) return;
+    if (next) animation.pause();
+    else void animation.play();
+  }, [reduced]);
+
+  const getCurrentOffset = useCallback(() => {
+    const animation = animationRef.current;
+    const width = loopWidthRef.current;
+    if (!animation || !width) return 0;
+    const time = Number(animation.currentTime ?? 0) % DURATION_MS;
+    return normalize(-(time / DURATION_MS) * width);
+  }, [normalize]);
   }, []);
 
   useEffect(() => {
@@ -98,16 +106,43 @@ export function PartnerMarquee() {
     const track = trackRef.current;
     if (!track) return;
 
-    const measure = () => {
+    const createLoop = () => {
+      if (animationRef.current) {
+        animationRef.current.cancel();
+        animationRef.current = null;
+      }
+
       const firstSecondSetItem = track.children[PARTNERS.length] as HTMLElement | undefined;
-      const firstItem = track.children[0] as HTMLElement | undefined;
-      const secondItem = track.children[1] as HTMLElement | undefined;
-      const itemAdvance = firstItem && secondItem ? secondItem.offsetLeft - firstItem.offsetLeft : 192;
       const exactLoopWidth = firstSecondSetItem?.offsetLeft ?? track.scrollWidth / 2;
-      speedRef.current = Math.min(82, Math.max(56, itemAdvance / SECONDS_PER_LOGO));
-      halfWidthRef.current = exactLoopWidth;
-      offsetRef.current = normalize(offsetRef.current);
-      applyOffset();
+      loopWidthRef.current = exactLoopWidth;
+
+      if (!exactLoopWidth || reduced) {
+        track.style.transform = "translate3d(0, 0, 0)";
+        return;
+      }
+
+      animationRef.current = track.animate(
+        [
+          { transform: "translate3d(0, 0, 0)" },
+          { transform: `translate3d(${-exactLoopWidth}px, 0, 0)` },
+        ],
+        {
+          duration: DURATION_MS,
+          easing: "linear",
+          iterations: Infinity,
+        },
+      );
+
+      if (hoveredRef.current || draggingRef.current) animationRef.current.pause();
+    };
+
+    const measure = () => {
+      const previousOffset = getCurrentOffset();
+      createLoop();
+      const animation = animationRef.current;
+      if (animation && loopWidthRef.current) {
+        animation.currentTime = offsetToTime(previousOffset);
+      }
     };
     measure();
     const ro = new ResizeObserver(measure);
@@ -128,38 +163,26 @@ export function PartnerMarquee() {
       }
     });
 
-    const tick = (ts: number) => {
-      if (lastTsRef.current == null) lastTsRef.current = ts;
-      const dt = (ts - lastTsRef.current) / 1000;
-      lastTsRef.current = ts;
-      if (!pausedRef.current && !draggingRef.current && !reduced && halfWidthRef.current > 0) {
-        offsetRef.current = normalize(offsetRef.current - speedRef.current * dt);
-        applyOffset();
-      }
-      rafRef.current = requestAnimationFrame(tick);
-    };
-    rafRef.current = requestAnimationFrame(tick);
-
     return () => {
-      if (rafRef.current) cancelAnimationFrame(rafRef.current);
-      lastTsRef.current = null;
+      if (animationRef.current) animationRef.current.cancel();
+      animationRef.current = null;
       ro.disconnect();
     };
-  }, [applyOffset, normalize, reduced]);
+  }, [getCurrentOffset, offsetToTime, reduced]);
 
   const onPointerDown = (e: React.PointerEvent) => {
     draggingRef.current = true;
     setPaused(true);
     dragStartXRef.current = e.clientX;
-    dragStartOffsetRef.current = offsetRef.current;
+    dragStartOffsetRef.current = getCurrentOffset();
     (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
   };
   const onPointerMove = (e: React.PointerEvent) => {
     if (!draggingRef.current) return;
     const dx = e.clientX - dragStartXRef.current;
     const next = normalize(dragStartOffsetRef.current + dx);
-    offsetRef.current = next;
-    applyOffset(next);
+    const animation = animationRef.current;
+    if (animation) animation.currentTime = offsetToTime(next);
   };
   const onPointerUp = (e: React.PointerEvent) => {
     draggingRef.current = false;
