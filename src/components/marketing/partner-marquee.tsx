@@ -28,14 +28,15 @@ const PARTNERS: Partner[] = [
 ];
 
 const SECONDS_PER_LOGO = 3;
-const DURATION_MS = PARTNERS.length * SECONDS_PER_LOGO * 1000;
 
 export function PartnerMarquee() {
   const marqueeRef = useRef<HTMLDivElement | null>(null);
   const trackRef = useRef<HTMLDivElement | null>(null);
-  const animationRef = useRef<Animation | null>(null);
   const loopWidthRef = useRef(0);
-  const hoveredRef = useRef(false);
+  const offsetRef = useRef(0);
+  const speedRef = useRef(64);
+  const rafRef = useRef<number | null>(null);
+  const lastTsRef = useRef<number | null>(null);
   const draggingRef = useRef(false);
   const dragStartXRef = useRef(0);
   const dragStartOffsetRef = useRef(0);
@@ -50,48 +51,11 @@ export function PartnerMarquee() {
     return next;
   }, []);
 
-  const offsetToTime = useCallback((offset: number) => {
-    const width = loopWidthRef.current;
-    if (!width) return 0;
-    return (-normalize(offset) / width) * DURATION_MS;
-  }, [normalize]);
-
-  const setPaused = useCallback((next: boolean) => {
-    const animation = animationRef.current;
-    if (!animation || reduced) return;
-    if (next) animation.pause();
-    else void animation.play();
-  }, [reduced]);
-
-  const getCurrentOffset = useCallback(() => {
-    const animation = animationRef.current;
-    const width = loopWidthRef.current;
-    if (!animation || !width) return 0;
-    const time = Number(animation.currentTime ?? 0) % DURATION_MS;
-    return normalize(-(time / DURATION_MS) * width);
-  }, [normalize]);
-
-  useEffect(() => {
-    const marquee = marqueeRef.current;
-    if (!marquee) return;
-
-    const pause = () => {
-      hoveredRef.current = true;
-      setPaused(true);
-    };
-    const resume = () => {
-      hoveredRef.current = false;
-      if (!draggingRef.current) setPaused(false);
-    };
-
-    marquee.addEventListener("pointerenter", pause);
-    marquee.addEventListener("pointerleave", resume);
-
-    return () => {
-      marquee.removeEventListener("pointerenter", pause);
-      marquee.removeEventListener("pointerleave", resume);
-    };
-  }, [setPaused]);
+  const applyOffset = useCallback((value = offsetRef.current) => {
+    const track = trackRef.current;
+    if (!track) return;
+    track.style.transform = `translate3d(${value}px, 0, 0)`;
+  }, []);
 
   useEffect(() => {
     const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -105,45 +69,37 @@ export function PartnerMarquee() {
     const track = trackRef.current;
     if (!track) return;
 
-    const createLoop = () => {
-      if (animationRef.current) {
-        animationRef.current.cancel();
-        animationRef.current = null;
-      }
-
-      const firstSecondSetItem = track.children[PARTNERS.length] as HTMLElement | undefined;
-      const exactLoopWidth = firstSecondSetItem?.offsetLeft ?? track.scrollWidth / 2;
-      loopWidthRef.current = exactLoopWidth;
-
-      if (!exactLoopWidth || reduced) {
-        track.style.transform = "translate3d(0, 0, 0)";
-        return;
-      }
-
-      animationRef.current = track.animate(
-        [
-          { transform: "translate3d(0, 0, 0)" },
-          { transform: `translate3d(${-exactLoopWidth}px, 0, 0)` },
-        ],
-        {
-          duration: DURATION_MS,
-          easing: "linear",
-          iterations: Infinity,
-        },
-      );
-
-      if (hoveredRef.current || draggingRef.current) animationRef.current.pause();
-    };
-
     const measure = () => {
-      const previousOffset = getCurrentOffset();
-      createLoop();
-      const animation = animationRef.current;
-      if (animation && loopWidthRef.current) {
-        animation.currentTime = offsetToTime(previousOffset);
-      }
+      const firstSecondSetItem = track.children[PARTNERS.length] as HTMLElement | undefined;
+      const firstItem = track.children[0] as HTMLElement | undefined;
+      const secondItem = track.children[1] as HTMLElement | undefined;
+      const exactLoopWidth = firstSecondSetItem?.offsetLeft ?? track.scrollWidth / 2;
+      const itemAdvance = firstItem && secondItem ? secondItem.offsetLeft - firstItem.offsetLeft : 192;
+
+      loopWidthRef.current = exactLoopWidth;
+      speedRef.current = itemAdvance / SECONDS_PER_LOGO;
+      offsetRef.current = normalize(offsetRef.current);
+      applyOffset();
     };
     measure();
+
+    const tick = (ts: number) => {
+      if (lastTsRef.current == null) lastTsRef.current = ts;
+      const dt = Math.min((ts - lastTsRef.current) / 1000, 0.04);
+      lastTsRef.current = ts;
+
+      const isHovered = marqueeRef.current?.matches(":hover") ?? false;
+      const shouldPause = reduced || draggingRef.current || isHovered;
+
+      if (!shouldPause && loopWidthRef.current > 0) {
+        offsetRef.current = normalize(offsetRef.current - speedRef.current * dt);
+        applyOffset();
+      }
+
+      rafRef.current = requestAnimationFrame(tick);
+    };
+    rafRef.current = requestAnimationFrame(tick);
+
     const ro = new ResizeObserver(measure);
     ro.observe(track);
 
@@ -163,29 +119,29 @@ export function PartnerMarquee() {
     });
 
     return () => {
-      if (animationRef.current) animationRef.current.cancel();
-      animationRef.current = null;
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+      rafRef.current = null;
+      lastTsRef.current = null;
       ro.disconnect();
     };
-  }, [getCurrentOffset, offsetToTime, reduced]);
+  }, [applyOffset, normalize, reduced]);
 
   const onPointerDown = (e: React.PointerEvent) => {
     draggingRef.current = true;
-    setPaused(true);
     dragStartXRef.current = e.clientX;
-    dragStartOffsetRef.current = getCurrentOffset();
+    dragStartOffsetRef.current = offsetRef.current;
     (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
   };
   const onPointerMove = (e: React.PointerEvent) => {
     if (!draggingRef.current) return;
     const dx = e.clientX - dragStartXRef.current;
     const next = normalize(dragStartOffsetRef.current + dx);
-    const animation = animationRef.current;
-    if (animation) animation.currentTime = offsetToTime(next);
+    offsetRef.current = next;
+    applyOffset(next);
   };
   const onPointerUp = (e: React.PointerEvent) => {
     draggingRef.current = false;
-    setPaused(hoveredRef.current && e.pointerType === "mouse");
+    lastTsRef.current = null;
     try {
       (e.currentTarget as HTMLElement).releasePointerCapture(e.pointerId);
     } catch {
