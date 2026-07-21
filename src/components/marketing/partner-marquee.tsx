@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 
 import abuDhabiPorts from "@/assets/partners/abu-dhabi-ports.png.asset.json";
@@ -27,7 +27,7 @@ const PARTNERS: Partner[] = [
   { name: "Centre Régional d'Investissement Souss Massa", url: cri.url },
 ];
 
-const SPEED_PX_PER_SEC = 60;
+const SPEED_PX_PER_SEC = 42;
 
 export function PartnerMarquee() {
   const trackRef = useRef<HTMLDivElement | null>(null);
@@ -35,11 +35,32 @@ export function PartnerMarquee() {
   const halfWidthRef = useRef(0);
   const rafRef = useRef<number | null>(null);
   const lastTsRef = useRef<number | null>(null);
+  const hoveredRef = useRef(false);
   const pausedRef = useRef(false);
   const draggingRef = useRef(false);
   const dragStartXRef = useRef(0);
   const dragStartOffsetRef = useRef(0);
   const [reduced, setReduced] = useState(false);
+
+  const normalize = useCallback((value: number) => {
+    const width = halfWidthRef.current;
+    if (!width) return value;
+
+    let next = value % width;
+    if (next > 0) next -= width;
+    return next;
+  }, []);
+
+  const applyOffset = useCallback((value = offsetRef.current) => {
+    const track = trackRef.current;
+    if (!track) return;
+    track.style.transform = `translate3d(${value}px, 0, 0)`;
+  }, []);
+
+  const setPaused = useCallback((next: boolean) => {
+    pausedRef.current = next;
+    if (!next) lastTsRef.current = null;
+  }, []);
 
   useEffect(() => {
     const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -54,8 +75,11 @@ export function PartnerMarquee() {
     if (!track) return;
 
     const measure = () => {
-      // track holds 2x the partners; one loop = half the total width + one gap
-      halfWidthRef.current = track.scrollWidth / 2;
+      const firstSecondSetItem = track.children[PARTNERS.length] as HTMLElement | undefined;
+      const exactLoopWidth = firstSecondSetItem?.offsetLeft ?? track.scrollWidth / 2;
+      halfWidthRef.current = exactLoopWidth;
+      offsetRef.current = normalize(offsetRef.current);
+      applyOffset();
     };
     measure();
     const ro = new ResizeObserver(measure);
@@ -76,25 +100,13 @@ export function PartnerMarquee() {
       }
     });
 
-    const normalize = (v: number) => {
-      const w = halfWidthRef.current;
-      if (!w) return v;
-      let n = v % w;
-      if (n > 0) n -= w;
-      return n;
-    };
-
-    const apply = () => {
-      track.style.transform = `translate3d(${offsetRef.current}px, 0, 0)`;
-    };
-
     const tick = (ts: number) => {
       if (lastTsRef.current == null) lastTsRef.current = ts;
       const dt = (ts - lastTsRef.current) / 1000;
       lastTsRef.current = ts;
       if (!pausedRef.current && !draggingRef.current && !reduced && halfWidthRef.current > 0) {
         offsetRef.current = normalize(offsetRef.current - SPEED_PX_PER_SEC * dt);
-        apply();
+        applyOffset();
       }
       rafRef.current = requestAnimationFrame(tick);
     };
@@ -105,22 +117,20 @@ export function PartnerMarquee() {
       lastTsRef.current = null;
       ro.disconnect();
     };
-  }, [reduced]);
-
-
-
-
+  }, [applyOffset, normalize, reduced]);
 
   const onPointerEnter = () => {
-    pausedRef.current = true;
+    hoveredRef.current = true;
+    setPaused(true);
   };
   const onPointerLeave = () => {
-    if (!draggingRef.current) pausedRef.current = false;
+    hoveredRef.current = false;
+    if (!draggingRef.current) setPaused(false);
   };
 
   const onPointerDown = (e: React.PointerEvent) => {
     draggingRef.current = true;
-    pausedRef.current = true;
+    setPaused(true);
     dragStartXRef.current = e.clientX;
     dragStartOffsetRef.current = offsetRef.current;
     (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
@@ -128,18 +138,13 @@ export function PartnerMarquee() {
   const onPointerMove = (e: React.PointerEvent) => {
     if (!draggingRef.current) return;
     const dx = e.clientX - dragStartXRef.current;
-    const w = halfWidthRef.current || 1;
-    let next = (dragStartOffsetRef.current + dx) % w;
-    if (next > 0) next -= w;
+    const next = normalize(dragStartOffsetRef.current + dx);
     offsetRef.current = next;
-    if (trackRef.current) {
-      trackRef.current.style.transform = `translate3d(${next}px, 0, 0)`;
-    }
+    applyOffset(next);
   };
   const onPointerUp = (e: React.PointerEvent) => {
     draggingRef.current = false;
-    pausedRef.current = false;
-    lastTsRef.current = null;
+    setPaused(hoveredRef.current && e.pointerType === "mouse");
     try {
       (e.currentTarget as HTMLElement).releasePointerCapture(e.pointerId);
     } catch {
@@ -158,11 +163,11 @@ export function PartnerMarquee() {
       {/* Edge fades */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-y-0 left-0 z-10 w-16 bg-gradient-to-r from-void to-transparent sm:w-24"
+        className="pointer-events-none absolute inset-y-0 left-0 z-10 w-20 bg-gradient-to-r from-night via-night/90 to-transparent sm:w-36 lg:w-48"
       />
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-y-0 right-0 z-10 w-16 bg-gradient-to-l from-void to-transparent sm:w-24"
+        className="pointer-events-none absolute inset-y-0 right-0 z-10 w-20 bg-gradient-to-l from-night via-night/90 to-transparent sm:w-36 lg:w-48"
       />
 
       <div
@@ -190,10 +195,10 @@ function LogoChip({ partner }: { partner: Partner }) {
   return (
     <div
       className={cn(
-        "flex h-20 w-40 shrink-0 items-center justify-center rounded-xl",
-        "bg-white/8 px-5 py-4 backdrop-blur-sm",
+        "flex h-20 w-40 shrink-0 items-center justify-center rounded-lg",
+        "bg-slate-200/10 px-5 py-4 backdrop-blur-sm ring-1 ring-white/8",
         "transition-all duration-300 ease-out",
-        "hover:bg-white/12 hover:scale-[1.04]",
+        "hover:bg-slate-100/15 hover:scale-[1.035] hover:ring-white/14",
         "sm:h-24 sm:w-48",
       )}
       title={partner.name}
