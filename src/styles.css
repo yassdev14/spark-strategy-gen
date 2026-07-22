@@ -120,6 +120,11 @@
   50% { opacity: 0.85; transform: scale(1.05); }
 }
 
+@keyframes marquee {
+  from { transform: translate3d(0, 0, 0); }
+  to { transform: translate3d(-50%, 0, 0); }
+}
+
 @utility reveal-on-scroll {
   opacity: 0;
   transform: translateY(24px);
