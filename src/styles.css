@@ -60,12 +60,12 @@
 :root {
   --radius: 0.875rem;
 
-  /* Brand */
-  --void: oklch(0.09 0.02 275);
-  --night: oklch(0.13 0.025 275);
-  --surface: oklch(0.18 0.03 275);
-  --iris: oklch(0.52 0.22 295);
-  --electric: oklch(0.62 0.24 340);
+  /* Brand — aligned to logo (#0347FF blue, #9002FF purple) */
+  --void: oklch(0.10 0.03 275);
+  --night: oklch(0.14 0.035 275);
+  --surface: oklch(0.19 0.04 275);
+  --iris: oklch(0.52 0.28 295);      /* #9002FF purple */
+  --electric: oklch(0.58 0.28 265);  /* #0347FF blue */
 
   /* Shadcn (dark-first) */
   --background: var(--void);
@@ -118,6 +118,11 @@
 @keyframes pulse-glow {
   0%, 100% { opacity: 0.55; transform: scale(1); }
   50% { opacity: 0.85; transform: scale(1.05); }
+}
+
+@keyframes marquee {
+  from { transform: translate3d(0, 0, 0); }
+  to { transform: translate3d(-50%, 0, 0); }
 }
 
 @utility reveal-on-scroll {
