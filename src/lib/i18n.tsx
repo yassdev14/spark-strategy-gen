@@ -37,6 +37,16 @@ const FR: Dict = {
   "hero.ctaPrimary": "Contacter le cabinet",
   "hero.ctaSecondary": "Explorer nos expertises",
 
+  // About
+  "about.eyebrow": "À propos du cabinet",
+  "about.title": "Perspective globale, précision locale.",
+  "about.description":
+    "MultiVision Strategies est un cabinet de conseil basé à Casablanca, Riyad et Paris, spécialisé dans l'accompagnement d'entreprises de secteurs variés. Nous fournissons des services de conseil stratégique et opérationnel, en nous appuyant sur une expertise approfondie pour aider les institutions et les entreprises à atteindre une croissance durable et à réussir leurs projets de transformation.",
+  "about.item1": "Backgrounds tier-1 — anciens de BCG, KPMG, PwC",
+  "about.item2": "Mandats secteur public et multinationales",
+  "about.item3": "Des équipes engagées jusqu'à l'exécution",
+  "about.cta": "Découvrir notre histoire",
+
   // Footer
   "footer.tagline":
     "Stratégie, conseil en investissement et excellence opérationnelle pour les institutions et entreprises actives au MENA et en Europe.",
@@ -70,6 +80,16 @@ const EN: Dict = {
     "A strategy, investment advisory and business consulting firm helping institutions and companies achieve sustainable growth and succeed in their transformation projects.",
   "hero.ctaPrimary": "Engage the firm",
   "hero.ctaSecondary": "Explore capabilities",
+
+  // About
+  "about.eyebrow": "About the firm",
+  "about.title": "Global perspective, local precision.",
+  "about.description":
+    "MultiVision Strategies is a consulting firm based in Casablanca, Riyadh and Paris, specialising in supporting companies across diverse industries. We provide strategic advisory and business consulting services, leveraging deep expertise to help institutions and companies achieve sustainable growth and succeed in their transformation projects.",
+  "about.item1": "Tier-1 consulting backgrounds — BCG, KPMG, PwC alumni",
+  "about.item2": "Public-sector and multinational corporate mandates",
+  "about.item3": "Delivery teams that stay accountable through execution",
+  "about.cta": "Read our story",
 
   // Footer
   "footer.tagline":

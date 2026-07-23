@@ -216,6 +216,7 @@ function Hero() {
 }
 
 function About() {
+  const { t } = useI18n();
   return (
     <section id="about" className="border-y border-white/5 bg-night/50 py-24">
       <div className="mx-auto grid max-w-7xl items-center gap-14 px-6 md:grid-cols-2">
@@ -238,16 +239,12 @@ function About() {
         </Reveal>
         <Reveal delay={120}>
           <SectionHeading
-            eyebrow="About the firm"
-            title="Global perspective, local precision."
-            description="MultiVision Strategies is a consulting firm based in Casablanca, Riyadh and Paris, specialising in supporting companies across diverse industries. We provide strategic advisory and business consulting services, leveraging deep expertise to help institutions and companies achieve sustainable growth and succeed in their transformation projects."
+            eyebrow={t("about.eyebrow")}
+            title={t("about.title")}
+            description={t("about.description")}
           />
           <ul className="mt-8 space-y-3 text-sm text-muted-foreground">
-            {[
-              "Tier-1 consulting backgrounds — BCG, KPMG, PwC alumni",
-              "Public-sector and multinational corporate mandates",
-              "Delivery teams that stay accountable through execution",
-            ].map((item) => (
+            {[t("about.item1"), t("about.item2"), t("about.item3")].map((item) => (
               <li key={item} className="flex items-start gap-3">
                 <span
                   aria-hidden="true"
@@ -260,7 +257,7 @@ function About() {
           <div className="mt-8">
             <Button asChild variant="glass">
               <Link to="/about">
-                Read our story <ArrowRight className="size-4" />
+                {t("about.cta")} <ArrowRight className="size-4" />
               </Link>
             </Button>
           </div>
