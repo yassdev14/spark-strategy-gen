@@ -2,8 +2,10 @@ import { Link } from "@tanstack/react-router";
 import { Linkedin, Mail, MapPin, Phone } from "lucide-react";
 
 import { Logo } from "@/components/brand/logo";
+import { useI18n } from "@/lib/i18n";
 
 export function SiteFooter() {
+  const { t } = useI18n();
   return (
     <footer className="border-t border-white/5 bg-void">
       <div className="mx-auto max-w-7xl px-6 py-16">
@@ -11,8 +13,7 @@ export function SiteFooter() {
           <div className="md:col-span-5">
             <Logo />
             <p className="mt-6 max-w-sm text-sm leading-relaxed text-muted-foreground">
-              Strategy, investment advisory, and operational excellence for
-              institutions and enterprises building across MENA and Europe.
+              {t("footer.tagline")}
             </p>
             <div className="mt-8 space-y-3 text-sm">
               <a
@@ -34,25 +35,25 @@ export function SiteFooter() {
 
           <div className="grid grid-cols-2 gap-8 md:col-span-7 md:grid-cols-3">
             <FooterCol
-              title="Company"
+              title={t("footer.company")}
               links={[
-                { to: "/about", label: "About" },
-                { to: "/services", label: "Services" },
-                { to: "/industries", label: "Industries" },
-                { to: "/contact", label: "Contact" },
+                { to: "/about", label: t("nav.about") },
+                { to: "/services", label: t("nav.services") },
+                { to: "/industries", label: t("nav.industries") },
+                { to: "/contact", label: t("nav.contact") },
               ]}
             />
             <FooterCol
-              title="Resources"
+              title={t("footer.resources")}
               links={[
-                { to: "/faq", label: "FAQ" },
-                { to: "/privacy", label: "Privacy" },
-                { to: "/terms", label: "Terms" },
+                { to: "/faq", label: t("nav.faq") },
+                { to: "/privacy", label: t("footer.privacy") },
+                { to: "/terms", label: t("footer.terms") },
               ]}
             />
             <div>
               <h3 className="text-xs font-semibold uppercase tracking-[0.18em] text-foreground">
-                Offices
+                {t("footer.offices")}
               </h3>
               <ul className="mt-4 space-y-3 text-sm text-muted-foreground">
                 <li className="flex items-start gap-2">
@@ -83,8 +84,7 @@ export function SiteFooter() {
 
         <div className="mt-16 flex flex-col-reverse items-start justify-between gap-6 border-t border-white/5 pt-8 md:flex-row md:items-center">
           <p className="text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
-            © {new Date().getFullYear()} MultiVision Strategies. All rights
-            reserved.
+            © {new Date().getFullYear()} MultiVision Strategies. {t("footer.rights")}
           </p>
           <a
             href="https://www.linkedin.com/"

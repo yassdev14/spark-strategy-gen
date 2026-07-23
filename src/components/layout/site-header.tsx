@@ -3,22 +3,25 @@ import { Menu, X } from "lucide-react";
 import { useEffect, useState } from "react";
 
 import { Logo } from "@/components/brand/logo";
+import { LangSwitch } from "@/components/layout/lang-switch";
 import { Button } from "@/components/ui/button";
 import { useScrollProgress } from "@/hooks/use-scroll-progress";
+import { useI18n } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
-
-const NAV = [
-  { to: "/", label: "Home" },
-  { to: "/about", label: "About" },
-  { to: "/services", label: "Services" },
-  { to: "/industries", label: "Industries" },
-  { to: "/faq", label: "FAQ" },
-] as const;
 
 export function SiteHeader() {
   const progress = useScrollProgress();
+  const { t } = useI18n();
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+
+  const NAV = [
+    { to: "/", label: t("nav.home") },
+    { to: "/about", label: t("nav.about") },
+    { to: "/services", label: t("nav.services") },
+    { to: "/industries", label: t("nav.industries") },
+    { to: "/faq", label: t("nav.faq") },
+  ] as const;
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -27,7 +30,6 @@ export function SiteHeader() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Close mobile menu on route change / escape
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
     window.addEventListener("keydown", onKey);
@@ -40,7 +42,7 @@ export function SiteHeader() {
         href="#main"
         className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-md focus:bg-iris focus:px-4 focus:py-2 focus:text-white"
       >
-        Skip to content
+        {t("nav.skipToContent")}
       </a>
       <header
         className={cn(
@@ -73,32 +75,34 @@ export function SiteHeader() {
             ))}
           </nav>
 
-          <div className="hidden md:block">
+          <div className="hidden items-center gap-3 md:flex">
+            <LangSwitch />
             <Button asChild size="sm" variant="brand">
-              <Link to="/contact">Contact</Link>
+              <Link to="/contact">{t("nav.contactCta")}</Link>
             </Button>
           </div>
 
-          <button
-            type="button"
-            aria-label={open ? "Close menu" : "Open menu"}
-            aria-expanded={open}
-            aria-controls="mobile-nav"
-            onClick={() => setOpen((v) => !v)}
-            className="grid size-11 place-items-center rounded-lg border border-white/10 bg-white/5 text-foreground md:hidden"
-          >
-            {open ? <X className="size-5" /> : <Menu className="size-5" />}
-          </button>
+          <div className="flex items-center gap-2 md:hidden">
+            <LangSwitch />
+            <button
+              type="button"
+              aria-label={open ? t("nav.closeMenu") : t("nav.openMenu")}
+              aria-expanded={open}
+              aria-controls="mobile-nav"
+              onClick={() => setOpen((v) => !v)}
+              className="grid size-11 place-items-center rounded-lg border border-white/10 bg-white/5 text-foreground"
+            >
+              {open ? <X className="size-5" /> : <Menu className="size-5" />}
+            </button>
+          </div>
         </div>
 
-        {/* scroll progress */}
         <div
           aria-hidden="true"
           className="h-px w-full origin-left bg-gradient-to-r from-iris to-electric"
           style={{ transform: `scaleX(${progress})` }}
         />
 
-        {/* mobile drawer */}
         <div
           id="mobile-nav"
           className={cn(
@@ -124,7 +128,7 @@ export function SiteHeader() {
               onClick={() => setOpen(false)}
               className="mt-2 rounded-md bg-gradient-to-r from-iris to-electric px-3 py-3 text-center text-base font-semibold text-white"
             >
-              Contact us
+              {t("nav.contactCta")}
             </Link>
           </nav>
         </div>

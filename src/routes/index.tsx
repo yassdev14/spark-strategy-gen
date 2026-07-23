@@ -30,6 +30,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
+import { useI18n } from "@/lib/i18n";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -142,6 +143,7 @@ function HomePage() {
 }
 
 function Hero() {
+  const { t } = useI18n();
   return (
     <section className="relative isolate overflow-hidden pt-24 pb-24 sm:pt-32">
       <div
@@ -161,32 +163,30 @@ function Hero() {
         <Reveal>
           <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.2em] text-muted-foreground backdrop-blur">
             <Sparkles className="size-3 text-electric" aria-hidden="true" />
-            Casablanca · Riyadh · Paris
+            {t("hero.badge")}
           </span>
         </Reveal>
         <Reveal delay={80}>
           <h1 className="mt-8 text-balance text-5xl font-semibold tracking-tight text-foreground sm:text-6xl md:text-7xl md:leading-[0.95]">
-            Delivering Value.
+            {t("hero.titleA")}
             <br />
-            <span className="gradient-text">Driving Change.</span>
+            <span className="gradient-text">{t("hero.titleB")}</span>
           </h1>
         </Reveal>
         <Reveal delay={160}>
           <p className="mx-auto mt-8 max-w-2xl text-pretty text-lg leading-relaxed text-muted-foreground">
-            A strategy, investment advisory and business consulting firm helping
-            institutions and companies achieve sustainable growth and succeed in
-            their transformation projects.
+            {t("hero.subtitle")}
           </p>
         </Reveal>
         <Reveal delay={240}>
           <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
             <Button asChild size="lg" variant="light">
               <Link to="/contact">
-                Engage the firm <ArrowRight className="size-4" />
+                {t("hero.ctaPrimary")} <ArrowRight className="size-4" />
               </Link>
             </Button>
             <Button asChild size="lg" variant="glass">
-              <Link to="/services">Explore capabilities</Link>
+              <Link to="/services">{t("hero.ctaSecondary")}</Link>
             </Button>
           </div>
         </Reveal>

@@ -15,6 +15,7 @@ import { SiteHeader } from "@/components/layout/site-header";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { BackToTop } from "@/components/layout/back-to-top";
 import { Toaster } from "@/components/ui/sonner";
+import { I18nProvider } from "@/lib/i18n";
 
 function NotFoundComponent() {
   return (
@@ -159,15 +160,17 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <div className="flex min-h-dvh flex-col bg-background text-foreground">
-        <SiteHeader />
-        <main id="main" className="flex-1">
-          <Outlet />
-        </main>
-        <SiteFooter />
-        <BackToTop />
-        <Toaster />
-      </div>
+      <I18nProvider>
+        <div className="flex min-h-dvh flex-col bg-background text-foreground">
+          <SiteHeader />
+          <main id="main" className="flex-1">
+            <Outlet />
+          </main>
+          <SiteFooter />
+          <BackToTop />
+          <Toaster />
+        </div>
+      </I18nProvider>
     </QueryClientProvider>
   );
 }
