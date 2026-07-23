@@ -37,6 +37,16 @@ const FR: Dict = {
   "hero.ctaPrimary": "Contacter le cabinet",
   "hero.ctaSecondary": "Explorer nos expertises",
 
+  // About
+  "about.eyebrow": "À propos du cabinet",
+  "about.title": "Perspective globale, précision locale.",
+  "about.description":
+    "MultiVision Strategies est un cabinet de conseil basé à Casablanca, Riyad et Paris, spécialisé dans l'accompagnement d'entreprises de secteurs variés. Nous fournissons des services de conseil stratégique et opérationnel, en nous appuyant sur une expertise approfondie pour aider les institutions et les entreprises à atteindre une croissance durable et à réussir leurs projets de transformation.",
+  "about.item1": "Backgrounds tier-1 — anciens de BCG, KPMG, PwC",
+  "about.item2": "Mandats secteur public et multinationales",
+  "about.item3": "Des équipes engagées jusqu'à l'exécution",
+  "about.cta": "Découvrir notre histoire",
+
   // Footer
   "footer.tagline":
     "Stratégie, conseil en investissement et excellence opérationnelle pour les institutions et entreprises actives au MENA et en Europe.",
