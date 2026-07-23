@@ -15,6 +15,7 @@ import { SiteHeader } from "@/components/layout/site-header";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { BackToTop } from "@/components/layout/back-to-top";
 import { Toaster } from "@/components/ui/sonner";
+import { I18nProvider } from "@/lib/i18n";
 
 function NotFoundComponent() {
   return (
