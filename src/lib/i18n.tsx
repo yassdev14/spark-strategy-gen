@@ -81,6 +81,16 @@ const EN: Dict = {
   "hero.ctaPrimary": "Engage the firm",
   "hero.ctaSecondary": "Explore capabilities",
 
+  // About
+  "about.eyebrow": "About the firm",
+  "about.title": "Global perspective, local precision.",
+  "about.description":
+    "MultiVision Strategies is a consulting firm based in Casablanca, Riyadh and Paris, specialising in supporting companies across diverse industries. We provide strategic advisory and business consulting services, leveraging deep expertise to help institutions and companies achieve sustainable growth and succeed in their transformation projects.",
+  "about.item1": "Tier-1 consulting backgrounds — BCG, KPMG, PwC alumni",
+  "about.item2": "Public-sector and multinational corporate mandates",
+  "about.item3": "Delivery teams that stay accountable through execution",
+  "about.cta": "Read our story",
+
   // Footer
   "footer.tagline":
     "Strategy, investment advisory, and operational excellence for institutions and enterprises building across MENA and Europe.",
