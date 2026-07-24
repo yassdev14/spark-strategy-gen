@@ -47,6 +47,64 @@ const FR: Dict = {
   "about.item3": "Des équipes engagées jusqu'à l'exécution",
   "about.cta": "Découvrir notre histoire",
 
+  // Services
+  "services.eyebrow": "Nos services",
+  "services.title": "Trois pratiques, une équipe responsable.",
+  "services.description":
+    "Des décisions stratégiques à l'exécution quotidienne — nous accompagnons institutions et entreprises de bout en bout.",
+  "services.learnMore": "En savoir plus",
+  "services.s1.title": "Conseil stratégique aux entreprises",
+  "services.s1.desc":
+    "Diagnostics, feuilles de route de transformation et aide à la décision pour aligner les opérations sur la stratégie long terme.",
+  "services.s2.title": "Attraction & conseil en investissement",
+  "services.s2.desc":
+    "Déployer, personnaliser et affiner des solutions d'investissement alignées avec les impératifs stratégiques et la croissance.",
+  "services.s3.title": "Excellence opérationnelle & support",
+  "services.s3.desc":
+    "Assistance technique et fonctionnelle, suivi proactif de la performance et optimisation continue des solutions.",
+
+  // Why
+  "why.eyebrow": "Pourquoi nous choisir",
+  "why.title": "Pourquoi les institutions de premier plan choisissent MultiVision.",
+  "why.p1.title": "Expertise sectorielle reconnue",
+  "why.p1.body":
+    "Nos partenaires ont piloté des missions sur les marchés mondiaux auprès de multinationales publiques et privées.",
+  "why.p2.title": "Approche agile centrée client",
+  "why.p2.body":
+    "Des missions sur mesure alignées avec les besoins spécifiques de chaque client et les dynamiques du marché.",
+  "why.p3.title": "Engagement d'excellence",
+  "why.p3.body":
+    "Un état d'esprit orienté résultats, focalisé sur la création de valeur durable et d'avantages compétitifs.",
+
+  // Stats
+  "stats.eyebrow": "En chiffres",
+  "stats.title": "Un track record bâti sur la livraison.",
+  "stats.s1": "Hubs continentaux",
+  "stats.s2": "Entités nationales conseillées",
+  "stats.s3": "Fidélisation client",
+  "stats.s4": "Années de pratique cumulée",
+
+  // Testimonial
+  "testimonial.quote":
+    "MultiVision a apporté de la clarté à une transformation complexe et livré des résultats mesurables. Leur équipe senior est restée engagée du mandat à l'exécution.",
+  "testimonial.author": "Directeur de programme · Mission secteur public",
+
+  // FAQ
+  "faq.eyebrow": "FAQ",
+  "faq.title": "Les réponses avant vos questions.",
+  "faq.description":
+    "Les questions les plus fréquentes des clients avant un engagement.",
+  "faq.cta": "Voir toutes les questions",
+  "faq.q1": "Avec quels types de clients travaille MultiVision Strategies ?",
+  "faq.a1":
+    "Nous travaillons avec des ministères, entités souveraines, family offices, sociétés en portefeuille de private equity et grands groupes multinationaux au MENA et en Europe.",
+  "faq.q2": "Quelles régions couvrez-vous ?",
+  "faq.a2":
+    "Nos hubs à Casablanca, Riyad et Paris nous permettent de mener des missions en Afrique du Nord, dans le Golfe et en Europe occidentale avec une seule équipe responsable.",
+  "faq.q3": "Comment débutent typiquement les missions ?",
+  "faq.a3":
+    "La plupart des missions commencent par un échange de cadrage avec l'un de nos partenaires. Nous rédigeons ensuite une proposition sur mesure sous 5 jours ouvrés.",
+
   // Footer
   "footer.tagline":
     "Stratégie, conseil en investissement et excellence opérationnelle pour les institutions et entreprises actives au MENA et en Europe.",
