@@ -62,69 +62,26 @@ export const Route = createFileRoute("/")({
   component: HomePage,
 });
 
-const SERVICES = [
-  {
-    icon: Compass,
-    title: "Strategic Business Advisory",
-    description:
-      "Assessments, transformation roadmaps, and executive decision support to align operations with long-term strategy.",
-    accent: "from-iris to-iris/40",
-  },
-  {
-    icon: LineChart,
-    title: "Investment Attraction & Advisory",
-    description:
-      "Deploy, customise, and fine-tune investment solutions that align with strategic imperatives and drive growth.",
-    accent: "from-electric to-iris",
-  },
-  {
-    icon: Gauge,
-    title: "Operational Excellence & Support",
-    description:
-      "Technical and functional assistance, proactive performance monitoring, and continuous solution optimisation.",
-    accent: "from-electric/70 to-electric",
-  },
+const SERVICE_META = [
+  { icon: Compass, key: "s1", accent: "from-iris to-iris/40" },
+  { icon: LineChart, key: "s2", accent: "from-electric to-iris" },
+  { icon: Gauge, key: "s3", accent: "from-electric/70 to-electric" },
 ] as const;
 
-const PILLARS = [
-  {
-    icon: BadgeCheck,
-    title: "Proven Industry Knowledge",
-    body: "Our partners have led mandates across global markets with public and private multinational corporations.",
-  },
-  {
-    icon: Users,
-    title: "Agile, Client-Centric Approach",
-    body: "Tailored engagements that align with each client's specific business needs and market dynamics.",
-  },
-  {
-    icon: ShieldCheck,
-    title: "Commitment to Excellence",
-    body: "A results-driven mindset focused on generating long-term value and durable competitive advantage.",
-  },
+const PILLAR_META = [
+  { icon: BadgeCheck, key: "p1" },
+  { icon: Users, key: "p2" },
+  { icon: ShieldCheck, key: "p3" },
 ] as const;
 
-const STATS: Stat[] = [
-  { value: 3, label: "Continental Hubs", suffix: "" },
-  { value: 15, label: "National Entities Advised", suffix: "+" },
-  { value: 98, label: "Client Retention", suffix: "%" },
-  { value: 12, label: "Years of Combined Practice", suffix: "+" },
-];
-
-const FAQS = [
-  {
-    q: "What kinds of clients does MultiVision Strategies work with?",
-    a: "We work with ministries, sovereign entities, family offices, private-equity portfolio companies, and multinational corporates across MENA and Europe.",
-  },
-  {
-    q: "Which regions do you cover?",
-    a: "Our hubs in Casablanca, Riyadh and Paris let us run mandates across North Africa, the Gulf, and Western Europe with a single accountable team.",
-  },
-  {
-    q: "How do engagements typically start?",
-    a: "Most engagements start with a short scoping conversation with one of our partners. From there, we draft a tailored proposal within 5 business days.",
-  },
+const STAT_META = [
+  { value: 3, key: "s1", suffix: "" },
+  { value: 15, key: "s2", suffix: "+" },
+  { value: 98, key: "s3", suffix: "%" },
+  { value: 12, key: "s4", suffix: "+" },
 ] as const;
+
+const FAQ_KEYS = ["q1", "q2", "q3"] as const;
 
 function HomePage() {
   return (
