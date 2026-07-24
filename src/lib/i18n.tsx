@@ -149,6 +149,64 @@ const EN: Dict = {
   "about.item3": "Delivery teams that stay accountable through execution",
   "about.cta": "Read our story",
 
+  // Services
+  "services.eyebrow": "Our services",
+  "services.title": "Three practices, one accountable team.",
+  "services.description":
+    "From high-stakes decisions to day-to-day execution — we support institutions and enterprises end-to-end.",
+  "services.learnMore": "Learn more",
+  "services.s1.title": "Strategic Business Advisory",
+  "services.s1.desc":
+    "Assessments, transformation roadmaps, and executive decision support to align operations with long-term strategy.",
+  "services.s2.title": "Investment Attraction & Advisory",
+  "services.s2.desc":
+    "Deploy, customise, and fine-tune investment solutions that align with strategic imperatives and drive growth.",
+  "services.s3.title": "Operational Excellence & Support",
+  "services.s3.desc":
+    "Technical and functional assistance, proactive performance monitoring, and continuous solution optimisation.",
+
+  // Why
+  "why.eyebrow": "Why choose us",
+  "why.title": "Why leading institutions choose MultiVision.",
+  "why.p1.title": "Proven Industry Knowledge",
+  "why.p1.body":
+    "Our partners have led mandates across global markets with public and private multinational corporations.",
+  "why.p2.title": "Agile, Client-Centric Approach",
+  "why.p2.body":
+    "Tailored engagements that align with each client's specific business needs and market dynamics.",
+  "why.p3.title": "Commitment to Excellence",
+  "why.p3.body":
+    "A results-driven mindset focused on generating long-term value and durable competitive advantage.",
+
+  // Stats
+  "stats.eyebrow": "By the numbers",
+  "stats.title": "A track record built on delivery.",
+  "stats.s1": "Continental Hubs",
+  "stats.s2": "National Entities Advised",
+  "stats.s3": "Client Retention",
+  "stats.s4": "Years of Combined Practice",
+
+  // Testimonial
+  "testimonial.quote":
+    "MultiVision brought clarity to a complex transformation and delivered outcomes we can measure. Their senior team stayed hands-on from mandate to execution.",
+  "testimonial.author": "Program Director · Public sector engagement",
+
+  // FAQ
+  "faq.eyebrow": "FAQ",
+  "faq.title": "Answers before you ask.",
+  "faq.description":
+    "The most common questions from clients evaluating an engagement.",
+  "faq.cta": "See all questions",
+  "faq.q1": "What kinds of clients does MultiVision Strategies work with?",
+  "faq.a1":
+    "We work with ministries, sovereign entities, family offices, private-equity portfolio companies, and multinational corporates across MENA and Europe.",
+  "faq.q2": "Which regions do you cover?",
+  "faq.a2":
+    "Our hubs in Casablanca, Riyadh and Paris let us run mandates across North Africa, the Gulf, and Western Europe with a single accountable team.",
+  "faq.q3": "How do engagements typically start?",
+  "faq.a3":
+    "Most engagements start with a short scoping conversation with one of our partners. From there, we draft a tailored proposal within 5 business days.",
+
   // Footer
   "footer.tagline":
     "Strategy, investment advisory, and operational excellence for institutions and enterprises building across MENA and Europe.",
