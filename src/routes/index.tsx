@@ -3,12 +3,9 @@ import { createFileRoute } from "@tanstack/react-router";
 import {
   ArrowRight,
   BadgeCheck,
-  Building2,
   Compass,
   Gauge,
-  Globe2,
   LineChart,
-  Rocket,
   ShieldCheck,
   Sparkles,
   Target,
