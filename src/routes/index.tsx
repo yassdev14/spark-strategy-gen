@@ -225,19 +225,20 @@ function About() {
 }
 
 function Services() {
+  const { t } = useI18n();
   return (
     <section className="py-28">
       <div className="mx-auto max-w-7xl px-6">
         <Reveal>
           <SectionHeading
-            eyebrow="Our services"
-            title="Three practices, one accountable team."
-            description="From high-stakes decisions to day-to-day execution — we support institutions and enterprises end-to-end."
+            eyebrow={t("services.eyebrow")}
+            title={t("services.title")}
+            description={t("services.description")}
           />
         </Reveal>
         <div className="mt-14 grid gap-6 md:grid-cols-3">
-          {SERVICES.map((s, i) => (
-            <Reveal key={s.title} delay={i * 80}>
+          {SERVICE_META.map((s, i) => (
+            <Reveal key={s.key} delay={i * 80}>
               <article className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-white/10 bg-card/60 p-8 transition-colors hover:border-white/20">
                 <div
                   className={`grid size-11 place-items-center rounded-xl bg-gradient-to-br ${s.accent} shadow-[0_10px_30px_-10px_var(--iris)]`}
@@ -245,17 +246,17 @@ function Services() {
                   <s.icon className="size-5 text-white" aria-hidden="true" />
                 </div>
                 <h3 className="mt-6 text-xl font-semibold tracking-tight text-foreground">
-                  {s.title}
+                  {t(`services.${s.key}.title`)}
                 </h3>
                 <p className="mt-3 flex-1 text-sm leading-relaxed text-muted-foreground">
-                  {s.description}
+                  {t(`services.${s.key}.description`)}
                 </p>
                 <div className="mt-8 flex items-center gap-2 text-sm font-medium text-foreground">
                   <Link
                     to="/services"
                     className="inline-flex items-center gap-1.5 text-muted-foreground transition-colors group-hover:text-foreground"
                   >
-                    Learn more{" "}
+                    {t("services.learnMore")}{" "}
                     <ArrowRight
                       className="size-3.5 transition-transform group-hover:translate-x-0.5"
                       aria-hidden="true"
@@ -276,27 +277,25 @@ function Services() {
 }
 
 function Why() {
+  const { t } = useI18n();
   return (
     <section className="border-t border-white/5 bg-night/40 py-28">
       <div className="mx-auto max-w-7xl px-6">
         <Reveal>
-          <SectionHeading
-            eyebrow="Why choose us"
-            title="Why leading institutions choose MultiVision."
-          />
+          <SectionHeading eyebrow={t("why.eyebrow")} title={t("why.title")} />
         </Reveal>
         <div className="mt-14 grid gap-6 md:grid-cols-3">
-          {PILLARS.map((p, i) => (
-            <Reveal key={p.title} delay={i * 80}>
+          {PILLAR_META.map((p, i) => (
+            <Reveal key={p.key} delay={i * 80}>
               <div className="flex h-full flex-col rounded-2xl border border-white/10 bg-card/40 p-8">
                 <div className="grid size-10 place-items-center rounded-lg bg-white/5">
                   <p.icon className="size-5 text-electric" aria-hidden="true" />
                 </div>
                 <h3 className="mt-6 text-sm font-semibold uppercase tracking-[0.14em] text-foreground">
-                  {p.title}
+                  {t(`why.${p.key}.title`)}
                 </h3>
                 <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                  {p.body}
+                  {t(`why.${p.key}.body`)}
                 </p>
               </div>
             </Reveal>
@@ -308,19 +307,23 @@ function Why() {
 }
 
 function Stats() {
+  const { t } = useI18n();
   return (
     <section className="py-28">
       <div className="mx-auto max-w-7xl px-6">
         <Reveal>
           <SectionHeading
             align="center"
-            eyebrow="By the numbers"
-            title="A track record built on delivery."
+            eyebrow={t("stats.eyebrow")}
+            title={t("stats.title")}
           />
         </Reveal>
         <div className="mt-16 grid grid-cols-2 gap-10 md:grid-cols-4">
-          {STATS.map((s) => (
-            <StatCounter key={s.label} stat={s} />
+          {STAT_META.map((s) => (
+            <StatCounter
+              key={s.key}
+              stat={{ value: s.value, suffix: s.suffix, label: t(`stats.${s.key}`) }}
+            />
           ))}
         </div>
       </div>
@@ -329,6 +332,7 @@ function Stats() {
 }
 
 function Testimonial() {
+  const { t } = useI18n();
   return (
     <section className="py-24">
       <div className="mx-auto max-w-4xl px-6">
@@ -338,12 +342,10 @@ function Testimonial() {
               <Target className="size-4 text-white" aria-hidden="true" />
             </div>
             <blockquote className="text-balance text-xl font-medium leading-relaxed text-foreground sm:text-2xl">
-              &ldquo;MultiVision brought clarity to a complex transformation and
-              delivered outcomes we can measure. Their senior team stayed
-              hands-on from mandate to execution.&rdquo;
+              &ldquo;{t("testimonial.quote")}&rdquo;
             </blockquote>
             <figcaption className="mt-8 text-sm text-muted-foreground">
-              Program Director · Public sector engagement
+              {t("testimonial.author")}
             </figcaption>
           </figure>
         </Reveal>
@@ -353,30 +355,31 @@ function Testimonial() {
 }
 
 function Faq() {
+  const { t } = useI18n();
   return (
     <section className="py-24">
       <div className="mx-auto grid max-w-6xl gap-12 px-6 md:grid-cols-[1fr_1.4fr]">
         <Reveal>
           <SectionHeading
-            eyebrow="FAQ"
-            title="Answers before you ask."
-            description="The most common questions from clients evaluating an engagement."
+            eyebrow={t("faq.eyebrow")}
+            title={t("faq.title")}
+            description={t("faq.description")}
           />
           <div className="mt-8">
             <Button asChild variant="glass">
-              <Link to="/faq">See all questions</Link>
+              <Link to="/faq">{t("faq.cta")}</Link>
             </Button>
           </div>
         </Reveal>
         <Reveal delay={100}>
           <Accordion type="single" collapsible className="w-full">
-            {FAQS.map((f, i) => (
-              <AccordionItem key={f.q} value={`item-${i}`} className="border-white/10">
+            {FAQ_KEYS.map((k, i) => (
+              <AccordionItem key={k} value={`item-${i}`} className="border-white/10">
                 <AccordionTrigger className="text-left text-base">
-                  {f.q}
+                  {t(`faq.${k}.q`)}
                 </AccordionTrigger>
                 <AccordionContent className="text-sm text-muted-foreground">
-                  {f.a}
+                  {t(`faq.${k}.a`)}
                 </AccordionContent>
               </AccordionItem>
             ))}
@@ -387,7 +390,3 @@ function Faq() {
   );
 }
 
-// Referenced for visual variety
-void Building2;
-void Globe2;
-void Rocket;
