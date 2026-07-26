@@ -4,6 +4,7 @@ import { Check, Compass, Gauge, LineChart } from "lucide-react";
 import { ContactCTA } from "@/components/marketing/contact-cta";
 import { Reveal } from "@/components/marketing/reveal";
 import { SectionHeading } from "@/components/marketing/section-heading";
+import { useI18n } from "@/lib/i18n";
 
 export const Route = createFileRoute("/services")({
   head: () => ({
@@ -31,45 +32,28 @@ const SERVICES = [
   {
     icon: Compass,
     tag: "01",
-    title: "Strategic Business Advisory",
-    description:
-      "In-depth assessments, transformation roadmaps and operational optimisation for companies preparing their next chapter.",
-    outcomes: [
-      "Growth and market-entry strategy",
-      "Organisational and operating-model redesign",
-      "Post-merger integration and PMO leadership",
-      "Board and executive decision support",
-    ],
+    key: "s1",
+    titleKey: "services.s1.title",
+    outcomes: ["o1", "o2", "o3", "o4"],
   },
   {
     icon: LineChart,
     tag: "02",
-    title: "Investment Attraction & Advisory",
-    description:
-      "We deploy, customise and fine-tune investment solutions that align with strategic imperatives and drive growth for institutions and companies.",
-    outcomes: [
-      "Sovereign and regional investment programmes",
-      "Deal origination and due diligence",
-      "Investor relations and capital-raise support",
-      "Portfolio value-creation planning",
-    ],
+    key: "s2",
+    titleKey: "services.s2.title",
+    outcomes: ["o1", "o2", "o3", "o4"],
   },
   {
     icon: Gauge,
     tag: "03",
-    title: "Operational Excellence & Support",
-    description:
-      "Technical and functional assistance, proactive performance monitoring, and continuous solution optimisation.",
-    outcomes: [
-      "Performance frameworks and KPI systems",
-      "Process re-engineering and cost optimisation",
-      "Digital transformation delivery",
-      "Managed support during ramp-up phases",
-    ],
+    key: "s3",
+    titleKey: "services.s3.title",
+    outcomes: ["o1", "o2", "o3", "o4"],
   },
 ] as const;
 
 function ServicesPage() {
+  const { t } = useI18n();
   return (
     <div>
       <section className="relative pt-24 pb-16">
@@ -82,16 +66,14 @@ function ServicesPage() {
         <div className="relative mx-auto max-w-4xl px-6 text-center">
           <Reveal>
             <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-electric">
-              Our services
+              {t("servicesPage.eyebrow")}
             </p>
             <h1 className="mt-5 text-balance text-5xl font-semibold tracking-tight text-foreground sm:text-6xl">
-              Three practices.{" "}
-              <span className="gradient-text">One accountable team.</span>
+              {t("servicesPage.titleA")}{" "}
+              <span className="gradient-text">{t("servicesPage.titleB")}</span>
             </h1>
             <p className="mx-auto mt-6 max-w-2xl text-pretty text-lg text-muted-foreground">
-              From the boardroom to day-to-day operations, we bring senior
-              partners into every mandate and stay accountable through
-              execution.
+              {t("servicesPage.subtitle")}
             </p>
           </Reveal>
         </div>
@@ -100,7 +82,7 @@ function ServicesPage() {
       <section className="py-16">
         <div className="mx-auto max-w-6xl space-y-6 px-6">
           {SERVICES.map((s, i) => (
-            <Reveal key={s.title} delay={i * 80}>
+            <Reveal key={s.key} delay={i * 80}>
               <article className="group grid gap-10 rounded-3xl border border-white/10 bg-card/50 p-8 md:grid-cols-[1fr_1.5fr] md:p-12">
                 <div>
                   <div className="flex items-center gap-3">
@@ -113,15 +95,15 @@ function ServicesPage() {
                     <s.icon className="size-6 text-white" aria-hidden="true" />
                   </div>
                   <h2 className="mt-6 text-2xl font-semibold text-foreground">
-                    {s.title}
+                    {t(s.titleKey)}
                   </h2>
                   <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                    {s.description}
+                    {t(`servicesPage.${s.key}.description`)}
                   </p>
                 </div>
                 <div className="border-t border-white/10 pt-8 md:border-l md:border-t-0 md:pl-10 md:pt-0">
                   <h3 className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
-                    What clients get
+                    {t("servicesPage.whatClients")}
                   </h3>
                   <ul className="mt-6 grid gap-4 sm:grid-cols-2">
                     {s.outcomes.map((o) => (
@@ -135,7 +117,7 @@ function ServicesPage() {
                         >
                           <Check className="size-3 text-white" />
                         </span>
-                        {o}
+                        {t(`servicesPage.${s.key}.${o}`)}
                       </li>
                     ))}
                   </ul>
@@ -151,9 +133,9 @@ function ServicesPage() {
           <Reveal>
             <SectionHeading
               align="center"
-              eyebrow="Expected outcomes"
-              title="Measurable value on every mandate."
-              description="Every engagement is scoped around a small set of business outcomes we agree upfront — revenue, cost, capital, or time-to-value — and we hold ourselves to them."
+              eyebrow={t("servicesPage.outcomes.eyebrow")}
+              title={t("servicesPage.outcomes.title")}
+              description={t("servicesPage.outcomes.description")}
             />
           </Reveal>
         </div>
