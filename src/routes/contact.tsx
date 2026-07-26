@@ -3,6 +3,7 @@ import { Linkedin, Mail, MapPin, Phone } from "lucide-react";
 
 import { Reveal } from "@/components/marketing/reveal";
 import { ContactForm } from "@/components/marketing/contact-form";
+import { useI18n } from "@/lib/i18n";
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
@@ -38,6 +39,12 @@ export const Route = createFileRoute("/contact")({
 });
 
 function ContactPage() {
+  const { t } = useI18n();
+  const offices = [
+    t("contactPage.office1"),
+    t("contactPage.office2"),
+    t("contactPage.office3"),
+  ];
   return (
     <div className="relative">
       <section className="relative pt-24 pb-12">
@@ -50,16 +57,14 @@ function ContactPage() {
         <div className="relative mx-auto max-w-4xl px-6 text-center">
           <Reveal>
             <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-electric">
-              Contact
+              {t("contactPage.eyebrow")}
             </p>
             <h1 className="mt-5 text-balance text-5xl font-semibold tracking-tight text-foreground sm:text-6xl">
-              Get a quote or set up a{" "}
-              <span className="gradient-text">consultation.</span>
+              {t("contactPage.titleA")}{" "}
+              <span className="gradient-text">{t("contactPage.titleB")}</span>
             </h1>
             <p className="mx-auto mt-6 max-w-2xl text-pretty text-lg text-muted-foreground">
-              Tell us a little about your business and what you're trying to
-              accomplish. A partner will reply personally within two business
-              days.
+              {t("contactPage.subtitle")}
             </p>
           </Reveal>
         </div>
@@ -71,38 +76,36 @@ function ContactPage() {
             <div className="space-y-8">
               <ContactInfo
                 icon={Phone}
-                label="Phone"
+                label={t("contactPage.phone")}
                 value="+212 660 126 180"
                 href="tel:+212660126180"
               />
               <ContactInfo
                 icon={Mail}
-                label="Email"
+                label={t("contactPage.email")}
                 value="management@multivisionstrategies.com"
                 href="mailto:management@multivisionstrategies.com"
               />
               <ContactInfo
                 icon={Linkedin}
-                label="LinkedIn"
+                label={t("contactPage.linkedin")}
                 value="MultiVision Strategies"
                 href="https://www.linkedin.com/"
               />
               <div>
                 <p className="text-xs font-semibold uppercase tracking-[0.22em] text-muted-foreground">
-                  Offices
+                  {t("contactPage.offices")}
                 </p>
                 <ul className="mt-4 space-y-3 text-sm text-foreground">
-                  {["Casablanca, Morocco", "Riyadh, Saudi Arabia", "Paris, France"].map(
-                    (loc) => (
-                      <li key={loc} className="flex items-center gap-3">
-                        <MapPin
-                          className="size-4 text-electric"
-                          aria-hidden="true"
-                        />
-                        {loc}
-                      </li>
-                    ),
-                  )}
+                  {offices.map((loc) => (
+                    <li key={loc} className="flex items-center gap-3">
+                      <MapPin
+                        className="size-4 text-electric"
+                        aria-hidden="true"
+                      />
+                      {loc}
+                    </li>
+                  ))}
                 </ul>
               </div>
               <div className="overflow-hidden rounded-2xl border border-white/10">
@@ -118,7 +121,7 @@ function ContactPage() {
                         aria-hidden="true"
                       />
                       <p className="mt-3 text-sm text-muted-foreground">
-                        Map available on request
+                        {t("contactPage.mapNote")}
                       </p>
                     </div>
                   </div>
