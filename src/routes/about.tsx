@@ -5,6 +5,7 @@ import { ContactCTA } from "@/components/marketing/contact-cta";
 import { Reveal } from "@/components/marketing/reveal";
 import { SectionHeading } from "@/components/marketing/section-heading";
 import { Button } from "@/components/ui/button";
+import { useI18n } from "@/lib/i18n";
 
 export const Route = createFileRoute("/about")({
   head: () => ({
@@ -28,53 +29,17 @@ export const Route = createFileRoute("/about")({
   component: AboutPage,
 });
 
-const VALUES = [
-  {
-    icon: Target,
-    title: "Mission",
-    body: "Enable institutions and companies to achieve sustainable growth by pairing deep expertise with rigorous, hands-on execution.",
-  },
-  {
-    icon: Eye,
-    title: "Vision",
-    body: "Be the strategic partner of reference for organisations building bridges between the MENA region and Europe.",
-  },
-  {
-    icon: HandshakeIcon,
-    title: "Values",
-    body: "Integrity, discretion, and long-term partnership. We are measured by the outcomes we help our clients realise.",
-  },
-  {
-    icon: Compass,
-    title: "Philosophy",
-    body: "Bring senior partners into every mandate. Stay accountable through execution. Leave the client stronger than we found them.",
-  },
+const VALUE_KEYS = [
+  { icon: Target, key: "mission" },
+  { icon: Eye, key: "vision" },
+  { icon: HandshakeIcon, key: "values" },
+  { icon: Compass, key: "philosophy" },
 ] as const;
 
-const TIMELINE = [
-  {
-    year: "2019",
-    title: "Founding partners meet",
-    body: "A group of Tier-1 consultants incubates the idea of a firm bridging MENA and Europe.",
-  },
-  {
-    year: "2021",
-    title: "Casablanca office",
-    body: "First mandates delivered for public-sector and industrial clients across North Africa.",
-  },
-  {
-    year: "2023",
-    title: "Riyadh hub opens",
-    body: "Expanding into the Gulf to accompany sovereign investment programmes and regional PMIs.",
-  },
-  {
-    year: "2024",
-    title: "Paris office",
-    body: "Paris hub anchors European coverage — capital markets, industrial supply chains, energy.",
-  },
-] as const;
+const TIMELINE_YEARS = ["2019", "2021", "2023", "2024"] as const;
 
 function AboutPage() {
+  const { t } = useI18n();
   return (
     <div className="relative">
       <section className="relative pt-24 pb-16">
@@ -87,17 +52,15 @@ function AboutPage() {
         <div className="relative mx-auto max-w-4xl px-6 text-center">
           <Reveal>
             <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-electric">
-              About us
+              {t("aboutPage.eyebrow")}
             </p>
             <h1 className="mt-5 text-balance text-5xl font-semibold tracking-tight text-foreground sm:text-6xl">
-              A consulting firm built for the{" "}
-              <span className="gradient-text">next decade</span> of growth.
+              {t("aboutPage.titleA")}{" "}
+              <span className="gradient-text">{t("aboutPage.titleB")}</span>{" "}
+              {t("aboutPage.titleC")}
             </h1>
             <p className="mx-auto mt-6 max-w-2xl text-pretty text-lg text-muted-foreground">
-              We are Multivision Strategies — a consulting firm based in
-              Casablanca, Riyadh and Paris, specialising in supporting
-              companies across diverse industries with strategic advisory and
-              business consulting services.
+              {t("aboutPage.subtitle")}
             </p>
           </Reveal>
         </div>
@@ -106,8 +69,8 @@ function AboutPage() {
       <section className="py-24">
         <div className="mx-auto max-w-7xl px-6">
           <div className="grid gap-6 md:grid-cols-2">
-            {VALUES.map((v, i) => (
-              <Reveal key={v.title} delay={i * 80}>
+            {VALUE_KEYS.map((v, i) => (
+              <Reveal key={v.key} delay={i * 80}>
                 <div className="flex h-full gap-6 rounded-2xl border border-white/10 bg-card/50 p-8">
                   <div className="grid size-12 shrink-0 place-items-center rounded-xl bg-gradient-to-br from-iris to-electric">
                     <v.icon
@@ -117,10 +80,10 @@ function AboutPage() {
                   </div>
                   <div>
                     <h2 className="text-xl font-semibold text-foreground">
-                      {v.title}
+                      {t(`aboutPage.values.${v.key}.title`)}
                     </h2>
                     <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                      {v.body}
+                      {t(`aboutPage.values.${v.key}.body`)}
                     </p>
                   </div>
                 </div>
@@ -134,26 +97,26 @@ function AboutPage() {
         <div className="mx-auto max-w-6xl px-6">
           <Reveal>
             <SectionHeading
-              eyebrow="Our story"
-              title="A short timeline."
+              eyebrow={t("aboutPage.timeline.eyebrow")}
+              title={t("aboutPage.timeline.title")}
             />
           </Reveal>
           <ol className="mt-14 space-y-8 border-l border-white/10 pl-8">
-            {TIMELINE.map((t, i) => (
-              <Reveal as="li" key={t.year} delay={i * 80}>
+            {TIMELINE_YEARS.map((year, i) => (
+              <Reveal as="li" key={year} delay={i * 80}>
                 <div className="relative">
                   <span
                     aria-hidden="true"
                     className="absolute -left-[42px] top-1.5 grid size-4 place-items-center rounded-full border-2 border-void bg-gradient-to-br from-iris to-electric"
                   />
                   <p className="text-xs font-semibold uppercase tracking-[0.22em] text-electric">
-                    {t.year}
+                    {year}
                   </p>
                   <h3 className="mt-2 text-lg font-semibold text-foreground">
-                    {t.title}
+                    {t(`aboutPage.timeline.${year}.title`)}
                   </h3>
                   <p className="mt-1 max-w-xl text-sm text-muted-foreground">
-                    {t.body}
+                    {t(`aboutPage.timeline.${year}.body`)}
                   </p>
                 </div>
               </Reveal>
@@ -167,14 +130,14 @@ function AboutPage() {
           <Reveal>
             <SectionHeading
               align="center"
-              eyebrow="Leadership"
-              title="Senior partners in every room."
-              description="Partner biographies will be published shortly. In the meantime, our management team is reachable directly for scoping conversations."
+              eyebrow={t("aboutPage.leadership.eyebrow")}
+              title={t("aboutPage.leadership.title")}
+              description={t("aboutPage.leadership.description")}
             />
             <div className="mt-8">
               <Button asChild variant="brand">
                 <Link to="/contact">
-                  Meet the team <ArrowRight className="size-4" />
+                  {t("aboutPage.leadership.cta")} <ArrowRight className="size-4" />
                 </Link>
               </Button>
             </div>
