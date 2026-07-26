@@ -372,6 +372,163 @@ const EN: Dict = {
   "footer.privacy": "Privacy",
   "footer.terms": "Terms",
   "footer.rights": "All rights reserved.",
+
+  // Shared CTA
+  "cta.eyebrow": "Ready when you are",
+  "cta.title": "Get a quote or set up a consultation.",
+  "cta.body":
+    "Our partners engage directly with founders, boards and public institutions on cross-border strategy and investment mandates.",
+  "cta.primary": "Start a conversation",
+  "cta.secondary": "Email management",
+
+  // About page
+  "aboutPage.eyebrow": "About us",
+  "aboutPage.titleA": "A consulting firm built for the",
+  "aboutPage.titleB": "next decade",
+  "aboutPage.titleC": "of growth.",
+  "aboutPage.subtitle":
+    "MultiVision Strategies — a consulting firm based in Casablanca, Riyadh and Paris, specialising in supporting companies across diverse industries with strategic advisory and business consulting services.",
+  "aboutPage.values.mission.title": "Mission",
+  "aboutPage.values.mission.body":
+    "Enable institutions and companies to achieve sustainable growth by pairing deep expertise with rigorous, hands-on execution.",
+  "aboutPage.values.vision.title": "Vision",
+  "aboutPage.values.vision.body":
+    "Be the strategic partner of reference for organisations building bridges between the MENA region and Europe.",
+  "aboutPage.values.values.title": "Values",
+  "aboutPage.values.values.body":
+    "Integrity, discretion, and long-term partnership. We are measured by the outcomes we help our clients realise.",
+  "aboutPage.values.philosophy.title": "Philosophy",
+  "aboutPage.values.philosophy.body":
+    "Bring senior partners into every mandate. Stay accountable through execution. Leave the client stronger than we found them.",
+  "aboutPage.timeline.eyebrow": "Our story",
+  "aboutPage.timeline.title": "A short timeline.",
+  "aboutPage.timeline.2019.title": "Founding partners meet",
+  "aboutPage.timeline.2019.body":
+    "A group of Tier-1 consultants incubates the idea of a firm bridging MENA and Europe.",
+  "aboutPage.timeline.2021.title": "Casablanca office",
+  "aboutPage.timeline.2021.body":
+    "First mandates delivered for public-sector and industrial clients across North Africa.",
+  "aboutPage.timeline.2023.title": "Riyadh hub opens",
+  "aboutPage.timeline.2023.body":
+    "Expanding into the Gulf to accompany sovereign investment programmes and regional PMIs.",
+  "aboutPage.timeline.2024.title": "Paris office",
+  "aboutPage.timeline.2024.body":
+    "Paris hub anchors European coverage — capital markets, industrial supply chains, energy.",
+  "aboutPage.leadership.eyebrow": "Leadership",
+  "aboutPage.leadership.title": "Senior partners in every room.",
+  "aboutPage.leadership.description":
+    "Partner biographies will be published shortly. In the meantime, our management team is reachable directly for scoping conversations.",
+  "aboutPage.leadership.cta": "Meet the team",
+
+  // Services page
+  "servicesPage.eyebrow": "Our services",
+  "servicesPage.titleA": "Three practices.",
+  "servicesPage.titleB": "One accountable team.",
+  "servicesPage.subtitle":
+    "From the boardroom to day-to-day operations, we bring senior partners into every mandate and stay accountable through execution.",
+  "servicesPage.whatClients": "What clients get",
+  "servicesPage.s1.description":
+    "In-depth assessments, transformation roadmaps and operational optimisation for companies preparing their next chapter.",
+  "servicesPage.s1.o1": "Growth and market-entry strategy",
+  "servicesPage.s1.o2": "Organisational and operating-model redesign",
+  "servicesPage.s1.o3": "Post-merger integration and PMO leadership",
+  "servicesPage.s1.o4": "Board and executive decision support",
+  "servicesPage.s2.description":
+    "We deploy, customise and fine-tune investment solutions that align with strategic imperatives and drive growth for institutions and companies.",
+  "servicesPage.s2.o1": "Sovereign and regional investment programmes",
+  "servicesPage.s2.o2": "Deal origination and due diligence",
+  "servicesPage.s2.o3": "Investor relations and capital-raise support",
+  "servicesPage.s2.o4": "Portfolio value-creation planning",
+  "servicesPage.s3.description":
+    "Technical and functional assistance, proactive performance monitoring, and continuous solution optimisation.",
+  "servicesPage.s3.o1": "Performance frameworks and KPI systems",
+  "servicesPage.s3.o2": "Process re-engineering and cost optimisation",
+  "servicesPage.s3.o3": "Digital transformation delivery",
+  "servicesPage.s3.o4": "Managed support during ramp-up phases",
+  "servicesPage.outcomes.eyebrow": "Expected outcomes",
+  "servicesPage.outcomes.title": "Measurable value on every mandate.",
+  "servicesPage.outcomes.description":
+    "Every engagement is scoped around a small set of business outcomes we agree upfront — revenue, cost, capital, or time-to-value — and we hold ourselves to them.",
+
+  // Industries page
+  "industriesPage.eyebrow": "Industries",
+  "industriesPage.titleA": "Sector-specific depth,",
+  "industriesPage.titleB": "delivered globally.",
+  "industriesPage.subtitle":
+    "We take on engagements only in sectors where our partners have first-hand operating and advisory experience.",
+  "industriesPage.public.title": "Public sector",
+  "industriesPage.public.body":
+    "Ministries, sovereign investment vehicles, and regional development authorities across MENA.",
+  "industriesPage.finance.title": "Financial services",
+  "industriesPage.finance.body":
+    "Banks, insurers and asset managers pursuing digital, regulatory or M&A transformation.",
+  "industriesPage.energy.title": "Energy & utilities",
+  "industriesPage.energy.body":
+    "Power, renewables and energy-transition programmes across public and private stakeholders.",
+  "industriesPage.industry.title": "Industry & manufacturing",
+  "industriesPage.industry.body":
+    "Industrial operators optimising supply chains, capacity, and cost-to-serve at scale.",
+  "industriesPage.health.title": "Health & life sciences",
+  "industriesPage.health.body":
+    "Public and private health systems modernising delivery, procurement and digital care.",
+  "industriesPage.tech.title": "Technology",
+  "industriesPage.tech.body":
+    "Growth-stage tech companies navigating market entry, scale-up and capital strategy.",
+  "industriesPage.transport.title": "Transport & logistics",
+  "industriesPage.transport.body":
+    "Ports, mobility and logistics operators optimising throughput and asset productivity.",
+  "industriesPage.real.title": "Real estate & infrastructure",
+  "industriesPage.real.body":
+    "Long-cycle infrastructure and real-estate portfolios with a value-creation lens.",
+
+  // FAQ page
+  "faqPage.eyebrow": "FAQ",
+  "faqPage.titleA": "Frequently asked",
+  "faqPage.titleB": "questions.",
+  "faqPage.subtitle":
+    "Everything clients typically want to know before starting an engagement.",
+  "faqPage.g1.title": "Engaging the firm",
+  "faqPage.g1.q1": "What kinds of clients does MultiVision Strategies work with?",
+  "faqPage.g1.a1":
+    "We work with ministries, sovereign entities, family offices, private-equity portfolio companies, and multinational corporates across MENA and Europe.",
+  "faqPage.g1.q2": "How do engagements typically start?",
+  "faqPage.g1.a2":
+    "Most engagements start with a short scoping conversation with one of our partners. From there, we draft a tailored proposal within 5 business days.",
+  "faqPage.g1.q3": "Do you work under NDA?",
+  "faqPage.g1.a3":
+    "Yes — every conversation is confidential by default, and NDAs are signed prior to detailed diagnostic work whenever needed.",
+  "faqPage.g2.title": "Practice & method",
+  "faqPage.g2.q1": "Which regions do you cover?",
+  "faqPage.g2.a1":
+    "Our hubs in Casablanca, Riyadh and Paris let us run mandates across North Africa, the Gulf, and Western Europe with a single accountable team.",
+  "faqPage.g2.q2": "How senior is the delivery team?",
+  "faqPage.g2.a2":
+    "Partners and senior managers are on every mandate from day one and stay accountable through execution.",
+  "faqPage.g2.q3": "How do you price engagements?",
+  "faqPage.g2.a3":
+    "We use fixed fee, retainer, or milestone-based pricing depending on the mandate. We are transparent about scope, cost and expected outcomes upfront.",
+  "faqPage.g3.title": "After the engagement",
+  "faqPage.g3.q1": "Do you support execution after the strategy is defined?",
+  "faqPage.g3.a1":
+    "Yes. Operational Excellence & Support is a dedicated practice for exactly that — we help clients implement, monitor, and refine.",
+  "faqPage.g3.q2": "How do you measure success?",
+  "faqPage.g3.a2":
+    "Every engagement is scoped around a small set of business outcomes we agree upfront — revenue, cost, capital, or time-to-value — and we hold ourselves to them.",
+
+  // Contact page
+  "contactPage.eyebrow": "Contact",
+  "contactPage.titleA": "Get a quote or set up a",
+  "contactPage.titleB": "consultation.",
+  "contactPage.subtitle":
+    "Tell us a little about your business and what you're trying to accomplish. A partner will reply personally within two business days.",
+  "contactPage.phone": "Phone",
+  "contactPage.email": "Email",
+  "contactPage.linkedin": "LinkedIn",
+  "contactPage.offices": "Offices",
+  "contactPage.office1": "Casablanca, Morocco",
+  "contactPage.office2": "Riyadh, Saudi Arabia",
+  "contactPage.office3": "Paris, France",
+  "contactPage.mapNote": "Map available on request",
 };
 
 const DICTS: Record<Lang, Dict> = { fr: FR, en: EN };
